@@ -29,7 +29,7 @@ def wishMe():
     else:
         speak("Good Evening!")  
 
-    speak("I am Jarvis Sir. Please tell me how may I help you")       
+    speak("I am fansan Sir. Please tell me how may I help you")       
 
 def takeCommand():
     #It takes microphone input from the user and returns string output
@@ -46,17 +46,17 @@ def takeCommand():
         print(f"User said: {query}\n")
 
     except Exception as e:
-        # print(e)    
-        print("Say that again please...")  
+        print(e)    
+        speak("Sorry sir i couldn't recognise you")
+        print("Say that again please...")
         return "None"
     return query
-
 def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
-    server.login('211b116@juetguna.in', 'your-password')
-    server.sendmail('211b116@juetguna.in', to, content)
+    server.login('test.mail.test370@gmail.com', 'tmttmt370')
+    server.sendmail('test.mail.test370@gmail.com', to, content)
     server.close()
 
 if __name__ == "__main__":
@@ -97,14 +97,24 @@ if __name__ == "__main__":
         elif 'open code' in query:
             codePath = "C:\\Users\\fanin\\Desktop\\Code.exe"
             os.startfile(codePath)
-
-        elif 'email to harry' in query:
+        elif ("exit" "close") in query:
+            speak("Yes sir")
+            quit()
+        elif "Thank you" in query:
+            speak("you are most welcome sir")
+        elif 'email' in query:
             try:
                 speak("What should I say?")
                 content = takeCommand()
-                to = "211b116@juetguna.in"    
+                to = "211b221@juetguna.in"    
                 sendEmail(to, content)
                 speak("Email has been sent!")
             except Exception as e:
                 print(e)
-                speak("Sorry my friend. I am not able to send this email")    
+                speak("Sorry my friend. I am not able to send this email")
+        
+        
+            
+            
+                
+            
