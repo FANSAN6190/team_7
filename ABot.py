@@ -1,22 +1,28 @@
 
-import pyttsx3 #pip install pyttsx3
-import speech_recognition as sr #pip install speechRecognition
+import pyttsx3
+import speech_recognition as sr 
 import datetime
-import wikipedia #pip install wikipedia
+import wikipedia 
 import webbrowser
 import os
 import smtplib
-
+import time
+from multiprocessing import Process
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
-# print(voices[1].id)
-engine.setProperty('voice', voices[0].id)
-
-
+engine.setProperty('voice', voices[1].id)
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
-
+    
+def runinparallel(*fns,):
+    proc = []
+    for fn in fns:
+        p = Process(target=fn)
+        p.start()
+        proc.append(p)
+    for p in proc:
+        p.join()
 
 def wishMe():
     hour = int(datetime.datetime.now().hour)
@@ -29,11 +35,8 @@ def wishMe():
     else:
         speak("Good Evening!")  
 
-    speak("I am fansan Sir. Please tell me how may I help you")       
-
+    speak("my name is AaBot Sir. Please tell me how may I help you")       
 def takeCommand():
-    #It takes microphone input from the user and returns string output
-
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
@@ -58,14 +61,15 @@ def sendEmail(to, content):
     server.login('test.mail.test370@gmail.com', 'tmttmt370')
     server.sendmail('test.mail.test370@gmail.com', to, content)
     server.close()
-
+def reminder(text,local_time):
+    local_time = local_time * 60
+    time.sleep(local_time)
+    speak(text)
 if __name__ == "__main__":
     wishMe()
     while True:
-    # if 1:
         query = takeCommand().lower()
 
-        # Logic for executing tasks based on query
         if 'wikipedia' in query:
             speak('Searching Wikipedia...')
             query = query.replace("wikipedia", "")
@@ -100,8 +104,22 @@ if __name__ == "__main__":
         elif ("exit" "close") in query:
             speak("Yes sir")
             quit()
-        elif "Thank you" in query:
+        elif "thank you" in query:
             speak("you are most welcome sir")
+        elif ("hello" or "hello aabot") in query:
+            speak("Hello Sir")
+        elif ("what is your name" or "who are you")in query :
+            speak("""I'm an Assistance bot, or aabot, i can help you to perform simple tasks like , 
+                  opening an aplication, playing a music, sending a mail, 
+                  giving imformation from wikipedia, etcetra.""")
+        elif("reminder" ):
+            speak("What shall I remind you about?")
+            text = takeCommand()
+            speak("In how many minutes?")
+            local_time = int(input())
+            runinparallel(reminder(text,local_time),takeCommand)
+        
+            
         elif 'email' in query:
             try:
                 speak("What should I say?")
@@ -111,7 +129,8 @@ if __name__ == "__main__":
                 speak("Email has been sent!")
             except Exception as e:
                 print(e)
-                speak("Sorry my friend. I am not able to send this email")
+                speak("Sorry sir. I am not able to send this email")
+
         
         
             
