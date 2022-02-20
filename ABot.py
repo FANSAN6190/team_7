@@ -90,7 +90,6 @@ if __name__ == "__main__":
         elif 'open stackoverflow' in query:
             webbrowser.open("stackoverflow.com")   
 
-
         elif ('play music' or "music") in query:
             music_dir = 'C:\\Users\\Admin\\Music\\Music\\YTD'
             songs = os.listdir(music_dir)
@@ -148,7 +147,3 @@ if __name__ == "__main__":
                 speak("Sorry sir. I am not able to send this email")
 
 
-
-        
-        
-            
