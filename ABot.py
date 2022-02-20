@@ -8,6 +8,9 @@ import os
 import smtplib
 import time
 from multiprocessing import Process
+import pyautogui
+import random
+
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
@@ -88,13 +91,15 @@ if __name__ == "__main__":
             webbrowser.open("stackoverflow.com")   
 
 
-        elif 'play music' in query:
-            music_dir = 'C:\\Users\\Admin\\Music\\Music\\YTD\\JokerBGMSong(Bass Boosted).mp3'
+        elif ('play music' or "music") in query:
+            music_dir = 'C:\\Users\\Admin\\Music\\Music\\YTD'
             songs = os.listdir(music_dir)
-            print(songs)    
-            os.startfile(os.path.join(music_dir, songs[0]))
+            print(songs)   
+            rang=range(0,65)
+            r=random.choice(rang) 
+            os.startfile(os.path.join(music_dir, songs[r]))
 
-        elif 'the time' in query:
+        elif ('the time' or 'time' or "what's the time") in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
             speak(f"Sir, the time is {strTime}")
 
@@ -112,28 +117,38 @@ if __name__ == "__main__":
             speak("""I'm an Assistance bot, or aabot, i can help you to perform simple tasks like , 
                   opening an aplication, playing a music, sending a mail, 
                   giving imformation from wikipedia, etcetra.""")
-        elif("reminder" ):
+        elif("reminder" in query):
             speak("What shall I remind you about?")
             text = takeCommand()
-            speak("In how many minutes?")
+            speak("In how many minutes? please type here.")      
+            
             local_time = int(input())
-            runinparallel(reminder(text,local_time),takeCommand)
+            runinparallel(reminder(text,local_time),takeCommand())
         
             
         elif 'email' in query:
             try:
+                speak("to whom")
+                sa=takeCommand()
+                if sa==("pravin" or "ravin" ):
+                    to = "211b221@juetguna.in"
+                
+                elif sa==("quazi" or "kazi" or "kaazi"):
+                    to = "211b233@juetguna.in"
+                
+                elif sa==("fanindra" or "funny" or "fani" or "fanin"):
+                    to ="211b116@juetguna.in"
                 speak("What should I say?")
                 content = takeCommand()
-                to = "211b221@juetguna.in"    
+                    
                 sendEmail(to, content)
                 speak("Email has been sent!")
             except Exception as e:
                 print(e)
                 speak("Sorry sir. I am not able to send this email")
 
+
+
         
         
-            
-            
-                
             
