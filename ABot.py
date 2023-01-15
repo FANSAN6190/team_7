@@ -1,15 +1,18 @@
 
-import pyttsx3
-import speech_recognition as sr 
 import datetime
-import wikipedia 
 import webbrowser
 import os
 import smtplib
 import time
 from multiprocessing import Process
-import pyautogui
 import random
+import pyttsx3
+import speech_recognition as sr 
+
+import wikipedia 
+
+import pyautogui
+
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
